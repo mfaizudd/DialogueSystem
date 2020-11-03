@@ -1,0 +1,15 @@
+{
+    "name": "EnsignBandeng.DialogueSystem",
+    "references": [
+        "XNode"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
