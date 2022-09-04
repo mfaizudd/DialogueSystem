@@ -1,9 +1,4 @@
-﻿#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#endif
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using XNode;
 
@@ -17,44 +12,24 @@ namespace EnsignBandeng.DialogueSystem
         public string choice;
 
         [TextArea, SerializeField]
-#if ODIN_INSPECTOR
-        [HideLabel]
-#endif
-        private string line = "";
+        private string _line = "";
 
-#if ODIN_INSPECTOR
-        [TabGroup("Actor")]
-        [AssetList]
-#endif
-        public CharacterInfo characterInfo;
+        [SerializeField]
+        private CharacterInfo _characterInfo;
 
         [Output(dynamicPortList = true)]
-        public string[] choices;
+        public string[] _choices;
 
-        public string Line
-        {
-            get
-            {
-                return line;
-            }
-        }
+        public string Line => _line;
 
-        public void Narrate()
-        {
-
-        }
-
-        public void FinishNarrating()
-        {
-
-        }
+        public bool IsEnding => _choices.Length <= 0;
 
         public DialogueNode AnswerDialogue(int index)
         {
-            if (choices.Length <= 0)
+            if (IsEnding)
                 return null;
 
-            NodePort port = GetPort($"choices {index}");
+            NodePort port = GetPort($"_choices {index}");
             if (port.ConnectionCount <= 0)
                 return null;
 
@@ -66,15 +41,5 @@ namespace EnsignBandeng.DialogueSystem
         {
             return null;
         }
-
-#if UNITY_EDITOR
-        [ContextMenu("Set as starting node")]
-        public void SetAsStartingNode()
-        {
-            DialogueGraph graph = this.graph as DialogueGraph;
-            graph.CurrentNode = this;
-            EditorUtility.SetDirty(graph);
-        }
-#endif
     }
 }

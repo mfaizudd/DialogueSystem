@@ -9,36 +9,14 @@ namespace EnsignBandeng.DialogueSystem
     [CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue/Dialogue")]
     public class DialogueGraph : NodeGraph
     {
-
-        public Dictionary<string, string> Tokens { get; private set; } = new Dictionary<string, string>();
-
-        public DialogueNode CurrentNode
+        public DialogueNode NextNode(DialogueNode node, int index)
         {
-            get
-            {
-                if (!initialized)
-                {
-                    Debug.LogWarning("Graph not initialized");
-                }
-                return currentNode;
-            }
-            set => currentNode = value;
+            return node.AnswerDialogue(index);
         }
 
-        private DialogueNode currentNode = null;
-
-        private bool initialized = false;
-
-        public void NextNode(int index)
+        public DialogueNode GetFirstNode()
         {
-            currentNode = currentNode.AnswerDialogue(index);
-        }
-
-        public void Init()
-        {
-            DialogueNode firstNode = nodes.FirstOrDefault(x => x.Inputs.Any(y => !y.IsConnected)) as DialogueNode;
-            currentNode = firstNode;
-            initialized = true;
+            return nodes.FirstOrDefault(x => x.Inputs.Any(y => !y.IsConnected)) as DialogueNode;
         }
     }
 }

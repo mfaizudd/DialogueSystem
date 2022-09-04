@@ -1,7 +1,9 @@
 {
     "name": "EnsignBandeng.DialogueSystem",
+    "rootNamespace": "",
     "references": [
-        "XNode"
+        "XNode",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
